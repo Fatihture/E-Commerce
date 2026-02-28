@@ -16,29 +16,41 @@ export default function Slider() {
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        className="w-full h-[500px] md:h-[700px]"
+        className="w-full h-[600px] md:h-[700px] lg:h-[800px]" // Yüksekliği LG ekranlar için biraz daha artırdım
       >
-        {/* Slayt 1 (Figma'daki ana görsel) */}
+        {/* Ana Görsel Slide'ı (Turkuaz Arka Plan ve Kadın) */}
         <SwiperSlide>
-          {/* Mobile First: Mobilde flex-col (alt alta), md ekranlarda içerik sola dayalı. */}
-          {/* Arka plan şimdilik Figma'daki gibi turkuaz. İstersen buraya bg-image de verebilirsin. */}
-          <div className="w-full h-full flex flex-col justify-center items-center md:items-start text-center md:text-left bg-[#23A6F0] px-10 md:px-32">
-            <h5 className="text-white font-bold tracking-widest mb-6 md:mb-8 text-sm md:text-base">
-              SUMMER 2020
-            </h5>
-            <h1 className="text-white text-4xl md:text-6xl font-bold mb-6 md:mb-8 leading-tight">
-              NEW COLLECTION
-            </h1>
-            <h4 className="text-white text-lg md:text-xl mb-8 max-w-sm">
-              We know how large objects will act, but things on a small scale.
-            </h4>
-            <button className="bg-[#2DC071] hover:bg-green-600 text-white font-bold py-3 px-10 rounded text-xl transition-colors">
-              SHOP NOW
-            </button>
+          {/* Arka plan görseli için dış kapsayıcı (bg-cover ile tam kaplar) */}
+          <div 
+            className="w-full h-full bg-cover bg-center"
+            style={{ backgroundImage: "url('/Home/slider.jpg')" }} // <-- KENDİ ARKA PLAN GÖRSEL YOLUNUZLA DEĞİŞTİRİN
+          >
+            {/* İçerik ve Kadın Görseli Düzeni:
+                Mobilde: Alt alta (flex-col), metin üstte
+                MD ve LG'de: Yan yana (flex-row), metin solda, kadın sağda */}
+            <div className="w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between max-w-7xl mx-auto px-10 lg:px-20 py-10">
+              
+              {/* Metin İçerik Bloğu: Sol Taraf (Masaüstü) */}
+              <div className="flex flex-col items-center md:items-start text-center md:text-left text-white w-full md:w-3/5 lg:w-1/2 gap-y-6 md:gap-y-8 mt-10 md:mt-0">
+                <h5 className="font-bold tracking-widest text-sm md:text-base">
+                  SUMMER 2020
+                </h5>
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                  NEW COLLECTION
+                </h1>
+                <h4 className="text-lg md:text-xl lg:text-2xl max-w-md">
+                  We know how large objects will act, but things on a small scale.
+                </h4>
+                <button className="bg-[#2DC071] hover:bg-green-600 text-white font-bold py-3 px-10 lg:px-12 rounded text-xl lg:text-2xl transition-colors">
+                  SHOP NOW
+                </button>
+              </div>
+
+            </div>
           </div>
         </SwiperSlide>
 
-        {/* Slayt 2 (Örnek kopya) */}
+        {/* Örnek Slayt (Diğer içerikleriniz) */}
         <SwiperSlide>
           <div className="w-full h-full flex flex-col justify-center items-center bg-slate-800 px-10">
             <h1 className="text-white text-4xl md:text-6xl font-bold mb-6 text-center">
