@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
-// Swiper stilleri
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -16,21 +15,16 @@ export default function Slider() {
         navigation
         pagination={{ clickable: true }}
         autoplay={{ delay: 5000, disableOnInteraction: false }}
-        className="w-full h-[600px] md:h-[700px] lg:h-[800px]" // Yüksekliği LG ekranlar için biraz daha artırdım
+        className="w-full h-[600px] md:h-[700px] lg:h-[800px]"
       >
-        {/* Ana Görsel Slide'ı (Turkuaz Arka Plan ve Kadın) */}
         <SwiperSlide>
-          {/* Arka plan görseli için dış kapsayıcı (bg-cover ile tam kaplar) */}
           <div 
             className="w-full h-full bg-cover bg-center"
-            style={{ backgroundImage: "url('/Home/slider.jpg')" }} // <-- KENDİ ARKA PLAN GÖRSEL YOLUNUZLA DEĞİŞTİRİN
+            style={{ backgroundImage: "url('/Home/slider.jpg')" }}
           >
-            {/* İçerik ve Kadın Görseli Düzeni:
-                Mobilde: Alt alta (flex-col), metin üstte
-                MD ve LG'de: Yan yana (flex-row), metin solda, kadın sağda */}
             <div className="w-full h-full flex flex-col md:flex-row items-center justify-center md:justify-between max-w-7xl mx-auto px-10 lg:px-20 py-10">
               
-              {/* Metin İçerik Bloğu: Sol Taraf (Masaüstü) */}
+              {/* Metin İçerik Bloğu: Sol Taraftaki */}
               <div className="flex flex-col items-center md:items-start text-center md:text-left text-white w-full md:w-3/5 lg:w-1/2 gap-y-6 md:gap-y-8 mt-10 md:mt-0">
                 <h5 className="font-bold tracking-widest text-sm md:text-base">
                   SUMMER 2020
@@ -50,7 +44,7 @@ export default function Slider() {
           </div>
         </SwiperSlide>
 
-        {/* Örnek Slayt (Diğer içerikleriniz) */}
+        {/* gerçekte koyacağımın yerine */}
         <SwiperSlide>
           <div className="w-full h-full flex flex-col justify-center items-center bg-slate-800 px-10">
             <h1 className="text-white text-4xl md:text-6xl font-bold mb-6 text-center">

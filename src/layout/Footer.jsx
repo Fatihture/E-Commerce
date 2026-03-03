@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="w-full flex flex-col items-center">
       
-      {/* 1. Üst Kısım: Logo ve Sosyal İkonlar */}
+      {/* logo ve face*/}
       <div className="w-full bg-white flex justify-center py-10 px-6 lg:px-10">
         <div className="w-full max-w-7xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <h3 className="font-bold text-2xl text-slate-800">Bandage</h3>
@@ -16,14 +16,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Araya İnce Çizgi (Divider) */}
       <div className="w-full border-t border-gray-200"></div>
 
-      {/* 2. Orta Kısım: Linkler ve Abonelik Formu */}
+      {/*linkler ve sub alanı*/}
       <div className="w-full bg-white flex justify-center py-12 px-6 lg:px-10">
         <div className="w-full max-w-7xl flex flex-col lg:flex-row justify-between gap-10 lg:gap-4">
 
-          {/* Company Info */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-slate-800 text-base">Company Info</h5>
             <nav className="flex flex-col gap-3 text-sm font-bold text-gray-500">
@@ -34,7 +32,6 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Legal */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-slate-800 text-base">Legal</h5>
             <nav className="flex flex-col gap-3 text-sm font-bold text-gray-500">
@@ -45,7 +42,6 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Features */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-slate-800 text-base">Features</h5>
             <nav className="flex flex-col gap-3 text-sm font-bold text-gray-500">
@@ -56,7 +52,6 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Resources */}
           <div className="flex flex-col gap-4">
             <h5 className="font-bold text-slate-800 text-base">Resources</h5>
             <nav className="flex flex-col gap-3 text-sm font-bold text-gray-500">
@@ -67,10 +62,8 @@ export default function Footer() {
             </nav>
           </div>
 
-          {/* Get In Touch (Form) */}
           <div className="flex flex-col gap-4 lg:max-w-[320px]">
             <h5 className="font-bold text-slate-800 text-base">Get In Touch</h5>
-            {/* Input ve Buton (Yan yana yapıştırılmış) */}
             <div className="flex w-full">
               <input
                 type="email"
@@ -87,7 +80,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 3. Alt Kısım: Gri Arka Planlı Copyright Yazısı */}
+      {/* 3. altaaki yazı */}
       <div className="w-full bg-gray-50 flex justify-center py-6 px-6 lg:px-10">
         <div className="w-full max-w-7xl flex items-center justify-center md:justify-start">
           <p className="text-sm font-bold text-gray-500 text-center md:text-left">
