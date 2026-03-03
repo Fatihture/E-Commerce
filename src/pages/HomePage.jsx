@@ -61,6 +61,7 @@ export default function HomePage() {
 
       {/* 3. Bestseller Products Section */}
       <section className="flex flex-col items-center w-full max-w-7xl mx-auto py-20 px-4">
+        <p className="text-gray-500 mb-3 text-center text-xl font-semibold">Featured Products</p>
         <h2 className="text-2xl font-bold text-slate-800 mb-2">BESTSELLER PRODUCTS</h2>
         <p className="text-gray-500 mb-10 text-center">Problems trying to resolve the conflict between</p>
         
