@@ -3,6 +3,9 @@ import Header from './layout/Header';
 import PageContent from './layout/PageContent';
 import Footer from './layout/Footer';
 import HomePage from './pages/HomePage';
+import ShopPage from './pages/ShopPage';  
+import ProductDetailPage from './pages/ProductDetailPage';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
@@ -15,7 +18,21 @@ function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
-            {/* İleride buraya diğer sayfalar (/shop, /contact) eklenecek */}
+            
+            {/* SHOP SAYFASI ROTASI */}
+            <Route exact path="/shop">
+              <ShopPage />
+            </Route>
+
+            <Route path="/product/:id">
+              <ProductDetailPage />
+            </Route>
+
+            {/* CONTACT SAYFASI ROTASI */}
+            <Route exact path="/contact">
+              <ContactPage />
+            </Route>
+            
           </Switch>
         </PageContent>
 
