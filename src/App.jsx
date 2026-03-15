@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';  
 import ProductDetailPage from './pages/ProductDetailPage';
 import ContactPage from './pages/ContactPage';
+import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
             {/* CONTACT SAYFASI ROTASI */}
             <Route exact path="/contact">
               <ContactPage />
+            </Route>
+
+            <Route exact path="/about">
+              <AboutPage />
             </Route>
             
           </Switch>
