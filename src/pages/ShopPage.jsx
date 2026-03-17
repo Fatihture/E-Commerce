@@ -5,7 +5,7 @@ export default function ShopPage() {
   return (
     <div className="flex flex-col items-center w-full">
       
-      {/* 1. Başlık ve Breadcrumb (Home > Shop) */}
+      {/*  Başlık  */}
       <section className="w-full bg-gray-50 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-4">
           <h2 className="text-2xl font-bold text-slate-800">Shop</h2>
@@ -17,38 +17,33 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* 2. Kategori Kartları (Mobilde alt alta, Masaüstünde 5'i yan yana) */}
+      {/* Kategori Kartları  */}
       <section className="w-full bg-gray-50 pb-12">
         <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl mx-auto px-4 gap-4">
-          {/* Kategori 1 */}
           <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
             <img src="/shop/category1.png" alt="Category 1" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
               
             </div>
           </div>
-          {/* Kategori 2 */}
           <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
             <img src="/shop/category2.png" alt="Category 2" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
 
             </div>
           </div>
-          {/* Kategori 3 */}
           <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
             <img src="/shop/category3.png" alt="Category 3" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
 
             </div>
           </div>
-          {/* Kategori 4 */}
           <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
             <img src="/shop/category4.png" alt="Category 4" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
 
             </div>
           </div>
-          {/* Kategori 5 */}
           <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
             <img src="/shop/category5.png" alt="Category 5" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
@@ -58,7 +53,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* 3. Filtreleme ve Sıralama Çubuğu */}
+      {/*  Filtreleme ve Sıralama*/}
       <section className="w-full bg-white py-6">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-6">
           <p className="text-sm font-bold text-gray-500">Showing all 12 results</p>
@@ -89,10 +84,9 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* 4. Ürün Listesi */}
+      {/*  Ürün Listesi */}
       <section className="w-full bg-white py-12">
         <div className="flex flex-wrap justify-center w-full max-w-7xl mx-auto px-4 gap-y-10">
-          {/* Örnek 8 Ürün - ProductCard ana sayfadakiyle aynı bileşen! */}
           <ProductCard image="/shop/product-1.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" />
           <ProductCard image="/shop/product-2.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" />
           <ProductCard image="/shop/product-3.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" />
@@ -108,7 +102,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* 5. Sayfalama (Pagination) */}
+      {/*  Sayfalama*/}
       <section className="w-full bg-white pb-12">
         <div className="flex justify-center">
           <div className="flex border border-gray-300 rounded shadow-sm">
@@ -121,7 +115,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* 6. Marka Logoları (Brands) */}
+      {/*  Marka */}
       <section className="w-full bg-gray-50 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-8 md:gap-4">
           <img src="shop/logo1.png" alt="Hooli" className="w-24 h-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />

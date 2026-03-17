@@ -5,7 +5,7 @@ export default function ProductDetailPage() {
   return (
     <div className="flex flex-col items-center w-full bg-gray-50">
       
-      {/* 1. Breadcrumb */}
+      {/* Breadcrumb */}
       <section className="w-full py-6">
         <div className="w-full max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-2 text-sm font-bold">
@@ -16,11 +16,10 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* 2. Ürün Ana Bilgileri (Resimler ve Detaylar) */}
+      {/* Ürün  */}
       <section className="w-full pb-12">
         <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto px-4 gap-8">
           
-          {/* Sol Taraf: Görsel Galerisi */}
           <div className="w-full md:w-1/2 flex flex-col gap-4">
             {/* Ana Büyük Görsel */}
             <div className="relative w-full h-[400px] md:h-[500px] bg-white overflow-hidden">
@@ -32,7 +31,7 @@ export default function ProductDetailPage() {
                  <ChevronRight className="w-10 h-10" />
                </button>
             </div>
-            {/* Küçük Resimler (Thumbnails) */}
+            {/* Küçük Resimler*/}
             <div className="flex gap-4">
                <div className="w-24 h-24 bg-white cursor-pointer opacity-100 border-2 border-[#23A6F0]">
                  <img src="/shop/product-9.png" alt="Thumb 1" className="w-full h-full object-cover" />
@@ -43,11 +42,11 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          {/* Sağ Taraf: Ürün Detayları */}
+          {/* Sağ Taraf */}
           <div className="w-full md:w-1/2 flex flex-col gap-4 pt-4">
             <h2 className="text-2xl text-slate-800">Graphic Design</h2>
             
-            {/* Yıldızlar ve Yorum Sayısı */}
+            {/* Yıldızlar  */}
             <div className="flex items-center gap-2">
               <div className="flex text-[#F3CD03]">
                 <Star className="w-5 h-5 fill-current" />
@@ -59,19 +58,19 @@ export default function ProductDetailPage() {
               <span className="text-sm font-bold text-gray-500">10 Reviews</span>
             </div>
 
-            {/* Fiyat ve Stok */}
+            {/* Fiyat*/}
             <h3 className="text-3xl font-bold text-slate-800 mt-2">$16.48</h3>
             <div className="flex gap-2 text-sm font-bold mt-1">
               <span className="text-gray-500">Availability  :</span>
               <span className="text-[#23A6F0]">In Stock</span>
             </div>
 
-            {/* Açıklama Metni */}
+            {/* Açıklama */}
             <p className="text-sm text-gray-500 mt-6 pb-6 border-b border-gray-300">
               Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.
             </p>
 
-            {/* Renk Seçenekleri */}
+            {/* Renk */}
             <div className="flex gap-2 mt-4">
               <div className="w-8 h-8 rounded-full bg-[#23A6F0] cursor-pointer"></div>
               <div className="w-8 h-8 rounded-full bg-[#2DC071] cursor-pointer"></div>
@@ -99,7 +98,7 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* 3. Sekmeler (Tabs) Alanı */}
+      {/* 3. Sekmeler */}
       <section className="w-full bg-white hidden md:block">
         <div className="w-full max-w-7xl mx-auto border-b border-gray-200">
           <div className="flex justify-center gap-8 text-sm font-bold text-gray-500">
@@ -110,7 +109,7 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* 4. Sekme İçeriği (Tab Content) */}
+      {/* 4. Sekme */}
       <section className="w-full bg-white py-12">
         <div className="flex flex-col md:flex-row w-full max-w-7xl mx-auto px-4 gap-8">
           {/* Sol Görsel */}
@@ -118,7 +117,6 @@ export default function ProductDetailPage() {
              <img src="/shop/product-12.png" alt="Detail" className="w-full h-full object-cover" />
           </div>
           
-          {/* Orta Metin Blokları */}
           <div className="w-full md:w-1/3 flex flex-col gap-4">
             <h3 className="text-xl font-bold text-slate-800 mb-2">the quick fox jumps over</h3>
             <p className="text-sm text-gray-500">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.</p>
@@ -126,7 +124,6 @@ export default function ProductDetailPage() {
             <p className="text-sm text-gray-500">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.</p>
           </div>
 
-          {/* Sağ Madde İmleri */}
           <div className="w-full md:w-1/3 flex flex-col gap-6">
             <div className="flex flex-col gap-4">
               <h3 className="text-xl font-bold text-slate-800 mb-2">the quick fox jumps over</h3>
@@ -144,13 +141,12 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* 5. Bestseller Products */}
+      {/* 5. Bestseller */}
       <section className="w-full bg-gray-50 py-12">
         <div className="w-full max-w-7xl mx-auto px-4">
           <h3 className="text-2xl font-bold text-slate-800 mb-6">BESTSELLER PRODUCTS</h3>
           <div className="w-full border-t border-gray-200 mb-8"></div>
           <div className="flex flex-wrap justify-center w-full gap-y-10">
-            {/* Örnek 8 Ürün */}
             <ProductCard image="/shop/product-1.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" id={1} />
             <ProductCard image="/shop/product-2.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" id={2} />
             <ProductCard image="/shop/product-3.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" id={3} />
@@ -163,7 +159,7 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* 6. Marka Logoları (Brands) - Shop Page ile Aynı */}
+      {/* 6. Marka */}
       <section className="w-full bg-gray-50 pb-12">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-8 md:gap-4">
           <img src="/shop/logo1.png" alt="Hooli" className="w-24 h-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />

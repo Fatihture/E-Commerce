@@ -4,11 +4,10 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col items-center w-full bg-white">
 
-      {/* 1. Hero Bölümü */}
+      {/* hero */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-16 lg:py-24">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
           
-          {/* Sol Metin Alanı */}
           <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
             <h5 className="font-bold text-slate-800 text-sm tracking-wide">ABOUT COMPANY</h5>
             <h1 className="text-4xl lg:text-6xl font-bold text-slate-800 leading-tight">
@@ -22,9 +21,7 @@ export default function AboutPage() {
             </button>
           </div>
 
-          {/* Sağ Görsel Alanı */}
           <div className="w-full lg:w-1/2 flex justify-center">
-            {/* Figma'dan sarı elbiseli kızı indirip about-hero.png olarak public'e at */}
             <img 
               src="/About/about1.png" 
               alt="About Us Hero" 
@@ -34,9 +31,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. Açıklama ve İstatistikler Bölümü */}
+      {/* açıklama */}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-12">
-        {/* Üstteki İki Kolonlu Yazı */}
         <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-20">
           <div className="w-full lg:w-1/2 flex flex-col gap-4 text-center lg:text-left">
             <h5 className="text-[#E74040] text-sm font-bold">Problems trying</h5>
@@ -51,7 +47,6 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* 4'lü İstatistikler */}
         <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-between items-center gap-10 lg:gap-4">
           <div className="flex flex-col items-center gap-2">
             <h1 className="text-5xl font-bold text-slate-800">15K</h1>
@@ -72,7 +67,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Video Bölümü */}
+      {/* video */}
       <section className="w-full max-w-5xl mx-auto px-6 lg:px-10 py-16">
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-2xl overflow-hidden bg-gray-300 flex justify-center items-center shadow-lg">
           {/* Figma'dan dağ manzarasını about-video-bg.jpg olarak kaydet */}
@@ -84,7 +79,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Meet Our Team Bölümü */}
+      {/* team*/}
       <section className="w-full max-w-7xl mx-auto px-6 lg:px-10 py-16 bg-white">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-slate-800 mb-4">Meet Our Team</h2>
@@ -93,10 +88,8 @@ export default function AboutPage() {
           </p>
         </div>
 
-        {/* Takım Kartları */}
         <div className="flex flex-col md:flex-row justify-center gap-8">
           
-          {/* Üye 1 */}
           <div className="flex flex-col items-center bg-white shadow-md overflow-hidden w-full md:w-1/3">
             <div className="w-full h-[250px] bg-gray-200">
               <img src="/About/about3.jpg" alt="Team Member 1" className="w-full h-full object-cover" />
@@ -112,7 +105,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Üye 2 */}
           <div className="flex flex-col items-center bg-white shadow-md overflow-hidden w-full md:w-1/3">
             <div className="w-full h-[250px] bg-gray-200">
               <img src="/About/about4.jpg" alt="Team Member 2" className="w-full h-full object-cover" />
@@ -128,7 +120,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Üye 3 */}
           <div className="flex flex-col items-center bg-white shadow-md overflow-hidden w-full md:w-1/3">
             <div className="w-full h-[250px] bg-gray-200">
               <img src="/About/about5.jpg" alt="Team Member 3" className="w-full h-full object-cover" />
@@ -147,7 +138,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. Markalar (Big Companies Are Here) */}
+      {/* marka*/}
       <section className="w-full bg-gray-50 py-20 text-center">
         <h2 className="text-4xl font-bold text-slate-800 mb-4">Big Companies Are Here</h2>
         <p className="text-gray-500 max-w-sm mx-auto text-sm mb-12">
@@ -163,10 +154,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. Work With Us (Bottom CTA - Edge to Edge) */}
       <section className="w-full flex flex-col lg:flex-row">
         
-        {/* Sol Mavi Alan */}
         <div className="w-full lg:w-2/3 bg-[#2A7CC7] flex items-center justify-center py-24 px-10">
           <div className="flex flex-col items-center lg:items-start text-center lg:text-left text-white max-w-md gap-6">
             <h5 className="font-bold tracking-widest text-sm">WORK WITH US</h5>
@@ -180,9 +169,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Sağ Görsel Alanı */}
-        <div className="w-full lg:w-1/3 h-[400px] lg:h-auto">
-          {/* Pembe kazaklı kadını about-cta.jpg olarak kaydet */}
+        <div className="hidden lg:block lg:w-1/3 h-[400px] lg:h-auto">
           <img src="/About/about6.png" alt="Work with us" className="w-full h-full object-cover" />
         </div>
 

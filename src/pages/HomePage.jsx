@@ -6,7 +6,7 @@ export default function HomePage() {
     <div className="flex flex-col items-center w-full">
       <Slider />
 
-      {/*Editor's Pick */}
+      {/*editor */}
       <section className="w-full flex flex-col items-center py-20 bg-gray-50">
         <div className="text-center mb-10 px-4">
           <h2 className="text-2xl font-bold text-slate-800 mb-2">EDITOR'S PICK</h2>
@@ -15,7 +15,6 @@ export default function HomePage() {
 
         <div className="flex flex-col lg:flex-row gap-4 w-full max-w-7xl mx-auto px-4 h-auto lg:h-[500px]">
           
-          {/* MEN */}
           <div className="relative w-full lg:w-[40%] h-[400px] lg:h-full bg-gray-300 overflow-hidden">
             <img src="/Home/MEN.jpg" alt="Men" className="w-full h-full object-cover" />
             <button className="absolute bottom-6 left-6 bg-white px-10 py-3 font-bold text-slate-800 hover:bg-gray-100 transition-colors shadow-md">
@@ -23,7 +22,6 @@ export default function HomePage() {
             </button>
           </div>
 
-          {/* WOMEN */}
           <div className="relative w-full lg:w-[30%] h-[400px] lg:h-full bg-gray-300 overflow-hidden">
             <img src="/Home/WOMEN1.jpg" alt="Women" className="w-full h-full object-cover" />
             <button className="absolute bottom-6 left-6 bg-white px-10 py-3 font-bold text-slate-800 hover:bg-gray-100 transition-colors shadow-md">
@@ -53,7 +51,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/*Bestseller Products */}
+      {/*Bestseller */}
       <section className="flex flex-col items-center w-full max-w-7xl mx-auto py-20 px-4">
         <p className="text-gray-500 mb-3 text-center text-xl font-semibold">Featured Products</p>
         <h2 className="text-2xl font-bold text-slate-800 mb-2">BESTSELLER PRODUCTS</h2>
