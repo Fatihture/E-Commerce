@@ -1,11 +1,18 @@
 import { ChevronRight, Grid, List, ChevronDown } from 'lucide-react';
+import { useSelector } from 'react-redux'; // EKLENDİ
+import { Link } from 'react-router-dom'; // EKLENDİ
 import ProductCard from '../components/ProductCard';
 
 export default function ShopPage() {
+  const categories = useSelector(state => state.product.categories);
+
+  // Rating'e göre sırala ve en iyi 5'ini al
+  const topCategories = categories ? [...categories].sort((a, b) => b.rating - a.rating).slice(0, 5) : [];
+
   return (
     <div className="flex flex-col items-center w-full">
       
-      {/*  Başlık  */}
+      {/* Başlık */}
       <section className="w-full bg-gray-50 py-6">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-4">
           <h2 className="text-2xl font-bold text-slate-800">Shop</h2>
@@ -17,43 +24,35 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* Kategori Kartları  */}
+      {/* DİNAMİK Kategori Kartları */}
       <section className="w-full bg-gray-50 pb-12">
-        <div className="flex flex-col md:flex-row justify-between w-full max-w-7xl mx-auto px-4 gap-4">
-          <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
-            <img src="/shop/category1.png" alt="Category 1" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
-              
-            </div>
-          </div>
-          <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
-            <img src="/shop/category2.png" alt="Category 2" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
-
-            </div>
-          </div>
-          <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
-            <img src="/shop/category3.png" alt="Category 3" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
-
-            </div>
-          </div>
-          <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
-            <img src="/shop/category4.png" alt="Category 4" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
-
-            </div>
-          </div>
-          <div className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer">
-            <img src="/shop/category5.png" alt="Category 5" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/10 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
-
-            </div>
-          </div>
+        <div className="flex flex-col md:flex-row justify-center w-full max-w-7xl mx-auto px-4 gap-4">
+          
+          {topCategories.map(cat => {
+            const genderText = cat.gender === 'k' ? 'kadin' : 'erkek';
+            const catName = cat.code.split(':')[1];
+            
+            return (
+              <Link 
+                key={cat.id}
+                to={`/shop/${genderText}/${catName}/${cat.id}`}
+                className="relative w-full md:w-1/5 h-[300px] md:h-[250px] overflow-hidden group cursor-pointer"
+              >
+                <img src={cat.img} alt={cat.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                
+                {/* Karanlık Katman ve Yazılar */}
+                <div className="absolute inset-0 bg-black/30 flex flex-col justify-center items-center text-white transition-colors group-hover:bg-black/50">
+                  <h3 className="font-bold text-xl uppercase tracking-wider">{cat.title}</h3>
+                  <p className="text-sm">Rating: {cat.rating}</p>
+                </div>
+              </Link>
+            );
+          })}
+          
         </div>
       </section>
 
-      {/*  Filtreleme ve Sıralama*/}
+      {/* Filtreleme ve Sıralama */}
       <section className="w-full bg-white py-6">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-6">
           <p className="text-sm font-bold text-gray-500">Showing all 12 results</p>
@@ -84,7 +83,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/*  Ürün Listesi */}
+      {/* Ürün Listesi */}
       <section className="w-full bg-white py-12">
         <div className="flex flex-wrap justify-center w-full max-w-7xl mx-auto px-4 gap-y-10">
           <ProductCard image="/shop/product-1.png" title="Graphic Design" department="English Department" oldPrice="$16.48" newPrice="$6.48" />
@@ -102,7 +101,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/*  Sayfalama*/}
+      {/* Sayfalama */}
       <section className="w-full bg-white pb-12">
         <div className="flex justify-center">
           <div className="flex border border-gray-300 rounded shadow-sm">
@@ -115,7 +114,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/*  Marka */}
+      {/* Marka */}
       <section className="w-full bg-gray-50 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-8 md:gap-4">
           <img src="shop/logo1.png" alt="Hooli" className="w-24 h-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />

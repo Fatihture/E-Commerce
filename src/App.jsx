@@ -1,6 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import { verifyUser } from './store/actions/clientActions';
+import { fetchCategories } from './store/actions/productActions'; // YENİ EKLENDİ
 
 import Header from './layout/Header';
 import PageContent from './layout/PageContent';
@@ -11,11 +16,19 @@ import ProductDetailPage from './pages/ProductDetailPage';
 import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(verifyUser());
+    dispatch(fetchCategories()); // EKLENDİ: Uygulama açılırken kategorileri çek
+  }, [dispatch]);
+
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen relative">
         <Header />
         
         <PageContent>
@@ -24,8 +37,12 @@ function App() {
               <HomePage />
             </Route>
             
-            {/* SHOP */}
             <Route exact path="/shop">
+              <ShopPage />
+            </Route>
+
+            {/* YENİ EKLENDİ: Dinamik Kategori Rotası */}
+            <Route path="/shop/:gender/:categoryName/:categoryId">
               <ShopPage />
             </Route>
 
@@ -33,7 +50,6 @@ function App() {
               <ProductDetailPage />
             </Route>
 
-            {/* CONTACT */}
             <Route exact path="/contact">
               <ContactPage />
             </Route>
@@ -45,13 +61,17 @@ function App() {
             <Route exact path="/signup">
               <SignupPage />
             </Route>
+
+            <Route exact path="/login">
+              <LoginPage />
+            </Route>
             
           </Switch>
         </PageContent>
 
         <Footer />
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
-      <ToastContainer position="top-right" autoClose={3000} />
     </Router>
   );
 }
