@@ -20,3 +20,29 @@ export const fetchCategories = () => async (dispatch, getState) => {
     console.error("Kategoriler çekilirken hata oluştu:", error);
   }
 };
+
+export const fetchProducts = (categoryId = null, filterText = null, sortOption = null) => async (dispatch, getState) => {
+  dispatch(setFetchState('FETCHING'));
+
+  try {
+    const { limit, offset } = getState().product;
+    
+    // URL parametrelerini oluşturuyoruz
+    const params = new URLSearchParams({ limit, offset });
+    
+    // Eğer parametreler doluysa URL'ye ekle (Örn: &category=2&filter=siyah&sort=price:desc)
+    if (categoryId) params.append('category', categoryId);
+    if (filterText) params.append('filter', filterText);
+    if (sortOption) params.append('sort', sortOption);
+
+    const response = await api.get(`/products?${params.toString()}`);
+
+    dispatch(setProductList(response.data.products));
+    dispatch(setTotal(response.data.total));
+    dispatch(setFetchState('FETCHED'));
+
+  } catch (error) {
+    console.error("Ürünler çekilirken hata oluştu:", error);
+    dispatch(setFetchState('FAILED'));
+  }
+};
