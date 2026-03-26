@@ -54,6 +54,10 @@ export const shoppingCartReducer = (state = initialState, action) => {
       return { ...state, payment: action.payload };
     case 'SET_ADDRESS':
       return { ...state, address: action.payload };
+
+      case 'CLEAR_CART':
+      return { ...state, cart: [] };
+
     default:
       return state;
   }

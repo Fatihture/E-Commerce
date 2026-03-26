@@ -4,12 +4,17 @@ import { useForm } from 'react-hook-form';
 import { Plus, Edit, Trash2, CreditCard } from 'lucide-react';
 import { fetchAddresses, addAddress, updateAddress, deleteAddress, fetchCards, addCard, updateCard, deleteCard } from '../store/actions/clientActions';
 
+import { useHistory } from 'react-router-dom';
+import { createOrder } from '../store/actions/shoppingCartActions';
+import { toast } from 'react-toastify'; // Hata mesajları için eklendi
+
 const cities = ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya"];
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const years = Array.from({ length: 15 }, (_, i) => new Date().getFullYear() + i);
 
 export default function CreateOrderPage() {
   const dispatch = useDispatch();
+  const history = useHistory(); // Yönlendirme için eklendi
   
   // REDUX STATELERİ
   const addressList = useSelector(state => state.client.addressList || []);
@@ -87,11 +92,50 @@ export default function CreateOrderPage() {
     setIsCardFormOpen(false);
   };
 
+  // --- YENİ EKLENEN: SİPARİŞİ TAMAMLAMA FONKSİYONU ---
+  const handleCompleteOrder = () => {
+    const selectedCard = creditCards.find(c => c.id === selectedCardId);
+
+    if (!selectedCard) {
+      toast.error("Lütfen bir ödeme yöntemi seçin.");
+      return;
+    }
+
+    const orderProducts = cart
+      .filter(item => item.checked)
+      .map(item => ({
+        product_id: item.product.id,
+        count: item.count,
+        detail: "standart" 
+      }));
+
+    if (orderProducts.length === 0) {
+      toast.error("Sepetinizde seçili ürün bulunmamaktadır.");
+      return;
+    }
+
+    const orderPayload = {
+      address_id: selectedAddressId,
+      order_date: new Date().toISOString(),
+      card_no: selectedCard.card_no,
+      card_name: selectedCard.name_on_card,
+      card_expire_month: selectedCard.expire_month,
+      card_expire_year: selectedCard.expire_year,
+      card_ccv: 321, 
+      price: grandTotal, 
+      products: orderProducts
+    };
+
+    // Thunk'ı ateşliyoruz! (shoppingCartActions içindeki createOrder çalışacak)
+    dispatch(createOrder(orderPayload, history));
+  };
+  // --------------------------------------------------
+
   return (
     <div className="bg-gray-50 min-h-screen py-10">
       <div className="max-w-6xl mx-auto px-4">
         
-        {/* ÜST SEKMELER (Görseldeki gibi) */}
+        {/* ÜST SEKMELER */}
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-8">
           <button 
             onClick={() => setActiveTab('address')}
@@ -153,11 +197,10 @@ export default function CreateOrderPage() {
               </>
             )}
 
-            {/* ---------------- ÖDEME SEKMESİ (Görseldeki Tasarım) ---------------- */}
+            {/* ---------------- ÖDEME SEKMESİ ---------------- */}
             {activeTab === 'payment' && (
               <div className="bg-white rounded shadow-sm border border-gray-200 p-6">
                 
-                {/* Üst Kısım: Kart ile Öde Başlığı */}
                 <div className="flex items-center gap-3 border-b border-gray-200 pb-4 mb-6">
                   <input type="radio" checked readOnly className="w-5 h-5 text-[#F27A1A] focus:ring-[#F27A1A]" />
                   <div>
@@ -168,7 +211,6 @@ export default function CreateOrderPage() {
 
                 <div className="flex flex-col md:flex-row gap-8">
                   
-                  {/* Kayıtlı Kartlar Listesi */}
                   <div className="flex-1">
                     <div className="flex justify-between items-center mb-4">
                       <h4 className="font-bold text-slate-800">Kart Bilgileri</h4>
@@ -187,11 +229,9 @@ export default function CreateOrderPage() {
                             <span className="font-bold text-slate-800">{card.name_on_card} Kartım</span>
                           </div>
                           
-                          {/* Kredi Kartı Görünümü */}
                           <div className="flex flex-col justify-between bg-gradient-to-r from-gray-700 to-gray-900 text-white p-4 rounded-md shadow-inner h-28">
                             <div className="flex justify-between items-center">
                               <CreditCard className="w-6 h-6 opacity-80" />
-                              {/* Sahte Mastercard/Visa logoları temsili */}
                               <div className="flex space-x-[-10px]">
                                 <div className="w-6 h-6 rounded-full bg-red-500 opacity-80"></div>
                                 <div className="w-6 h-6 rounded-full bg-yellow-400 opacity-80"></div>
@@ -203,7 +243,6 @@ export default function CreateOrderPage() {
                             </div>
                           </div>
 
-                          {/* Düzenle / Sil */}
                           <div className="absolute top-4 right-4 flex gap-2">
                             <button onClick={(e) => { e.stopPropagation(); openCardForm(card); }} className="text-gray-400 hover:text-[#F27A1A]"><Edit className="w-4 h-4"/></button>
                             <button onClick={(e) => { e.stopPropagation(); dispatch(deleteCard(card.id)); }} className="text-gray-400 hover:text-red-500"><Trash2 className="w-4 h-4"/></button>
@@ -218,7 +257,6 @@ export default function CreateOrderPage() {
                     </div>
                   </div>
 
-                  {/* Taksit Seçenekleri (Görseldeki gibi sabit duruyor) */}
                   <div className="flex-1 border-t md:border-t-0 md:border-l border-gray-200 pt-6 md:pt-0 md:pl-8">
                     <h4 className="font-bold text-slate-800 mb-1">Taksit Seçenekleri</h4>
                     <p className="text-sm text-gray-500 mb-4">Kartınıza uygun taksit seçeneğini seçiniz</p>
@@ -249,12 +287,16 @@ export default function CreateOrderPage() {
           {/* SAĞ TARAF: SİPARİŞ ÖZETİ VE ONAY KUTUSU (Ortak) */}
           <div className="w-full lg:w-[320px] flex flex-col gap-4 sticky top-24 h-max">
             
-            {/* Buton Metni Sekmeye Göre Değişir */}
+            {/* DİKKAT: İŞTE BURASI GÜNCELLENDİ (handleCompleteOrder bağlandı) */}
             <button 
               onClick={() => {
-                if (activeTab === 'address' && selectedAddressId) setActiveTab('payment');
-                else if (activeTab === 'payment') alert("Ödeme işlemi bir sonraki görevde yapılacak!");
-                else alert("Lütfen bir adres seçin!");
+                if (activeTab === 'address' && selectedAddressId) {
+                  setActiveTab('payment');
+                } else if (activeTab === 'payment') {
+                  handleCompleteOrder(); // SİPARİŞİ TAMAMLA FONKSİYONU ÇALIŞIR
+                } else {
+                  toast.error("Lütfen bir adres seçin!");
+                }
               }}
               disabled={activeTab === 'payment' && (!selectedCardId || !agreedToTerms)}
               className="w-full bg-[#F27A1A] text-white font-bold py-3.5 rounded hover:bg-orange-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
@@ -314,7 +356,6 @@ export default function CreateOrderPage() {
           <div className="bg-white rounded-lg shadow-xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
             <h2 className="text-xl font-bold mb-4">{editingAddress ? 'Adresi Güncelle' : 'Yeni Adres Ekle'}</h2>
             <form onSubmit={handleAddressSubmit(onAddressSubmit)} className="flex flex-col gap-3">
-              {/* Form alanları bir önceki adımda yazdığımızla aynı, burayı uzun tutmamak adına özetliyorum. Senin kodundaki form inputlarını buraya koyabilirsin. */}
               <input {...regAddress("title")} placeholder="Adres Başlığı" className="border p-2 rounded" required />
               <input {...regAddress("name")} placeholder="Ad" className="border p-2 rounded" required />
               <input {...regAddress("surname")} placeholder="Soyad" className="border p-2 rounded" required />
@@ -334,7 +375,7 @@ export default function CreateOrderPage() {
         </div>
       )}
 
-      {/* KART MODALI (Görseldeki Form) */}
+      {/* KART MODALI */}
       {isCardFormOpen && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
@@ -369,7 +410,6 @@ export default function CreateOrderPage() {
                 <div className="w-1/3">
                   <label className="text-sm font-bold text-gray-700 block mb-1">CVV</label>
                   <input maxLength="3" placeholder="***" className="w-full border p-2.5 rounded bg-gray-50 focus:bg-white" />
-                  {/* Not: API payloadında CVV istenmiyor, o yüzden register etmedik, sadece görsel amaçlı duruyor */}
                 </div>
               </div>
 
