@@ -14,6 +14,9 @@ export default function Header() {
   const user = useSelector(state => state.client.user); 
   const categories = useSelector(state => state.product.categories); // YENİ EKLENDİ
 
+  const cart = useSelector(state => state.shoppingCart.cart);
+  const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
+
   // Kadın ve Erkek kategorilerini ayırıyoruz
   const womenCategories = categories?.filter(c => c.gender === 'k') || [];
   const menCategories = categories?.filter(c => c.gender === 'e') || [];
@@ -118,9 +121,56 @@ export default function Header() {
           
           <Search className="w-5 h-5 cursor-pointer hover:text-blue-700 transition-colors" />
           
-          <div className="flex items-center gap-1 cursor-pointer hover:text-blue-700 transition-colors">
+          <div className="relative group flex items-center gap-1 cursor-pointer hover:text-blue-700 transition-colors">
             <ShoppingCart className="w-5 h-5" />
-            <span className="hidden lg:inline text-xs font-normal">1</span>
+            {/* Dinamik ürün sayısı (Eğer 0'dan büyükse göster) */}
+            <span className="hidden lg:inline text-xs font-bold bg-[#23A6F0] text-white rounded-full px-1.5 py-0.5">
+              {totalItems}
+            </span>
+
+            {/* DROPDOWN KUTUSU */}
+            <div className="absolute top-full right-0 mt-2 w-[320px] bg-white border border-gray-200 shadow-xl rounded-md p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 cursor-default">
+              <h3 className="font-bold text-slate-800 border-b pb-2 mb-3">Sepetim ({totalItems} Ürün)</h3>
+
+              {/* Sepetteki Ürünler */}
+              <div className="flex flex-col gap-4 max-h-[300px] overflow-y-auto pr-2">
+                {cart.length === 0 ? (
+                  <p className="text-gray-500 text-sm text-center py-6">Sepetiniz şu an boş.</p>
+                ) : (
+                  cart.map((item, index) => (
+                    <div key={index} className="flex gap-3 border-b border-gray-100 pb-3">
+                      <img 
+                        src={item.product.images?.[0]?.url || "/shop/product-1.png"} 
+                        alt={item.product.name} 
+                        className="w-16 h-20 object-cover rounded border border-gray-200 shadow-sm" 
+                      />
+                      <div className="flex flex-col justify-between flex-1">
+                        <h4 className="text-sm font-bold text-slate-800 line-clamp-2">{item.product.name}</h4>
+                        <div className="flex justify-between items-end mt-2">
+                          <span className="text-xs font-bold text-gray-500">Adet: {item.count}</span>
+                          {/* Görseldeki gibi turuncu fiyat rengi */}
+                          <span className="text-[#E77C40] font-bold text-sm">
+                            ${(item.product.price * item.count).toFixed(2)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Alt Butonlar (Sepette ürün varsa göster) */}
+              {cart.length > 0 && (
+                <div className="flex gap-2 mt-4 pt-2">
+                  <Link to="/cart" className="flex-1 bg-white text-slate-800 border border-gray-300 font-bold py-2.5 rounded text-sm text-center hover:bg-gray-50 transition-colors">
+                    Sepete Git
+                  </Link>
+                  <Link to="/checkout" className="flex-1 bg-[#E77C40] text-white font-bold py-2.5 rounded text-sm text-center hover:bg-orange-600 transition-colors">
+                    Siparişi Tamamla
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
           
           <div className="hidden lg:flex items-center gap-1 cursor-pointer hover:text-blue-700 transition-colors">

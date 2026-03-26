@@ -17,6 +17,10 @@ import ContactPage from './pages/ContactPage';
 import AboutPage from './pages/AboutPage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import CartPage from './pages/CartPage'; // YENİ EKLENDİ
+
+import ProtectedRoute from './components/ProtectedRoute';
+ import CreateOrderPage from './pages/CreateOrderPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -36,13 +40,24 @@ function App() {
             <Route exact path="/">
               <HomePage />
             </Route>
-            
-            <Route exact path="/shop">
-              <ShopPage />
+
+            <Route exact path="/cart">
+             <CartPage />
             </Route>
 
-            {/* YENİ EKLENDİ: Dinamik Kategori Rotası */}
+            <ProtectedRoute exact path="/create-order">
+              <CreateOrderPage />
+            </ProtectedRoute>
+
+            <Route exact path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId">
+              <ProductDetailPage />
+            </Route>
+
             <Route path="/shop/:gender/:categoryName/:categoryId">
+              <ShopPage />
+            </Route>
+            
+            <Route exact path="/shop">
               <ShopPage />
             </Route>
 

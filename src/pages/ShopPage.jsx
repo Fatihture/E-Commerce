@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'; // useState EKLENDİ
-import { ChevronRight, Grid, List, ChevronDown, Loader2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ChevronRight, Grid as GridIcon, List as ListIcon, ChevronDown, Loader2 } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
@@ -12,11 +12,10 @@ export default function ShopPage() {
 
   const { categories, productList, fetchState, total, limit, offset } = useSelector(state => state.product);
 
-  // --- YENİ: FİLTRELEME VE SIRALAMA STATE'LERİ ---
-  const [filterText, setFilterText] = useState(''); // Input'a yazılan yazı
-  const [sortOption, setSortOption] = useState(''); // Select'ten seçilen değer
+  // --- FİLTRELEME VE SIRALAMA STATE'LERİ ---
+  const [filterText, setFilterText] = useState(''); 
+  const [sortOption, setSortOption] = useState(''); 
   
-  // "Filter" butonuna basıldığında API'ye gidecek kesinleşmiş değerler
   const [appliedFilter, setAppliedFilter] = useState('');
   const [appliedSort, setAppliedSort] = useState('');
 
@@ -31,7 +30,6 @@ export default function ShopPage() {
 
   // 2. Sayfa, Kategori, veya Uygulanan Filtreler değiştiğinde ÜRÜNLERİ ÇEK!
   useEffect(() => {
-    // Thunk'a sırasıyla: Kategori, Filtre Yazısı ve Sıralama Tipini gönderiyoruz
     dispatch(fetchProducts(categoryId, appliedFilter, appliedSort));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [dispatch, categoryId, offset, appliedFilter, appliedSort]);
@@ -40,7 +38,7 @@ export default function ShopPage() {
   const handleFilterClick = () => {
     setAppliedFilter(filterText);
     setAppliedSort(sortOption);
-    dispatch(setOffset(0)); // Filtreleme yapılınca sayfa sayısını 1'e sıfırlamak ZORUNLUDUR!
+    dispatch(setOffset(0)); 
   };
   // ----------------------------------------------
 
@@ -58,7 +56,6 @@ export default function ShopPage() {
     <div className="flex flex-col items-center w-full">
       {/* BAŞLIK */}
       <section className="w-full bg-gray-50 py-6">
-         {/* ... (Başlık kodu aynı) ... */}
          <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-4">
           <h2 className="text-2xl font-bold text-slate-800">Shop</h2>
           <div className="flex items-center gap-2 text-sm font-bold">
@@ -71,7 +68,6 @@ export default function ShopPage() {
 
       {/* KATEGORİ KARTLARI */}
       <section className="w-full bg-gray-50 pb-12">
-        {/* ... (Kategori kartları kodu aynı) ... */}
         <div className="flex flex-col md:flex-row justify-center w-full max-w-7xl mx-auto px-4 gap-4">
           {topCategories.map(cat => {
             const genderText = cat.gender === 'k' ? 'kadin' : 'erkek';
@@ -91,7 +87,7 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* --- YENİ FİLTRELEME VE SIRALAMA ALANI --- */}
+      {/* --- FİLTRELEME VE SIRALAMA ALANI --- */}
       <section className="w-full bg-white py-6">
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-6">
           <p className="text-sm font-bold text-gray-500 w-full md:w-auto text-center md:text-left">
@@ -101,17 +97,15 @@ export default function ShopPage() {
           <div className="flex items-center gap-4 justify-center w-full md:w-auto">
             <span className="text-sm font-bold text-gray-500">Views:</span>
             <button className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
-              <Grid className="w-4 h-4 text-slate-800" />
+              <GridIcon className="w-4 h-4 text-slate-800" />
             </button>
             <button className="p-2 border border-gray-300 rounded hover:bg-gray-100 transition-colors">
-              <List className="w-4 h-4 text-gray-500" />
+              <ListIcon className="w-4 h-4 text-gray-500" />
             </button>
           </div>
 
-          {/* Arama, Dropdown ve Filter Butonu */}
           <div className="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
             
-            {/* 1. Arama Kutusu (Filter) */}
             <input 
               type="text" 
               placeholder="Search..." 
@@ -120,7 +114,6 @@ export default function ShopPage() {
               className="border border-gray-300 bg-gray-50 text-slate-800 py-3 px-4 rounded text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 w-full md:w-auto"
             />
 
-            {/* 2. Sıralama Dropdown (Sort) */}
             <div className="relative w-full md:w-auto">
               <select 
                 value={sortOption}
@@ -136,7 +129,6 @@ export default function ShopPage() {
               <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
             </div>
 
-            {/* 3. Filter Butonu */}
             <button 
               onClick={handleFilterClick}
               className="bg-[#23A6F0] text-white font-bold py-3 px-6 rounded text-sm hover:bg-blue-600 transition-colors w-full md:w-auto"
@@ -161,30 +153,45 @@ export default function ShopPage() {
             <p className="text-red-500 font-bold">Failed to load products. Please try again.</p>
           </div>
         ) : productList?.length === 0 ? (
-          // YENİ EKLENDİ: EĞER KATEGORİNİN İÇİ BOŞSA BU ÇALIŞACAK
           <div className="flex flex-col items-center justify-center w-full py-20 gap-2">
             <h3 className="text-2xl font-bold text-slate-800">No products found!</h3>
             <p className="text-gray-500">There are no products in this category yet.</p>
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center w-full max-w-7xl mx-auto px-4 gap-y-10 gap-x-6">
-            {productList?.map(product => (
-              <ProductCard 
-                key={product.id}
-                image={product.images?.[0]?.url || "/shop/product-1.png"} 
-                title={product.name} 
-                department={product.description} 
-                oldPrice={`$${(product.price * 1.2).toFixed(2)}`} 
-                newPrice={`$${product.price.toFixed(2)}`} 
-              />
-            ))}
+          
+          /* DÜZELTİLEN KISIM: GRID YAPISI EKLENDİ (YAN YANA 4 KART) */
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full max-w-7xl mx-auto px-4">
+            {productList?.map(product => {
+              const cat = categories?.find(c => c.id === product.category_id);
+              const genderText = cat?.gender === 'k' ? 'kadin' : cat?.gender === 'e' ? 'erkek' : 'diger';
+              const catName = cat?.code?.split(':')[1] || 'kategori';
+              const slug = product.name.toLowerCase().replace(/[^a-z0-9\u011F\u011E\u0131\u0130\u00F6\u00D6\u00E7\u00C7\u015F\u015E\u00FC\u00DC]+/g, '-').replace(/(^-|-$)+/g, '');
+              const detailUrl = `/shop/${genderText}/${catName}/${product.category_id}/${slug}/${product.id}`;
+
+              return (
+                <Link 
+                  key={product.id} 
+                  to={detailUrl} 
+                  className="cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300 rounded-lg"
+                >
+                  <ProductCard 
+                    image={product.images?.[0]?.url || "/shop/product-1.png"} 
+                    title={product.name} 
+                    department={product.description} 
+                    oldPrice={`$${(product.price * 1.2).toFixed(2)}`} 
+                    newPrice={`$${product.price.toFixed(2)}`} 
+                  />
+                </Link>
+              );
+            })}
           </div>
+          /* DÜZELTİLEN KISIM BİTTİ */
+
         )}
       </section>
 
       {/* DİNAMİK SAYFALAMA BÖLÜMÜ */}
       <section className="w-full bg-white pb-12">
-        {/* ... (Sayfalama kodu aynı) ... */}
         <div className="flex justify-center">
           <div className="flex border border-gray-300 rounded shadow-sm">
             <button onClick={() => dispatch(setOffset(0))} disabled={currentPage === 1} className="px-6 py-4 bg-gray-100 text-gray-400 font-bold border-r border-gray-300 hover:bg-gray-200 transition-colors rounded-l disabled:opacity-50 disabled:cursor-not-allowed">First</button>
@@ -198,7 +205,6 @@ export default function ShopPage() {
 
       {/* MARKALAR */}
       <section className="w-full bg-gray-50 py-12">
-        {/* ... (Markalar kodu aynı) ... */}
         <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-7xl mx-auto px-4 gap-8 md:gap-4">
           <img src="/shop/logo1.png" alt="Hooli" className="w-24 h-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />
           <img src="/shop/logo2.png" alt="Lyft" className="w-24 h-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer" />

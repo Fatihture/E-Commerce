@@ -5,7 +5,10 @@ const initialState = {
   limit: 25, // Kanban'da istenen default değer
   offset: 0,
   filter: '',
-  fetchState: 'NOT_FETCHED' // "NOT_FETCHED", "FETCHING", "FETCHED", "FAILED"
+  fetchState: 'NOT_FETCHED', // "NOT_FETCHED", "FETCHING", "FETCHED", "FAILED"
+
+  currentProduct: null, // Detay sayfasında gösterilecek ürün
+  detailFetchState: 'NOT_FETCHED',
 };
 
 export const productReducer = (state = initialState, action) => {
@@ -24,6 +27,10 @@ export const productReducer = (state = initialState, action) => {
       return { ...state, filter: action.payload };
     case 'SET_FETCH_STATE':
       return { ...state, fetchState: action.payload };
+      case 'SET_CURRENT_PRODUCT':
+      return { ...state, currentProduct: action.payload };
+    case 'SET_DETAIL_FETCH_STATE':
+      return { ...state, detailFetchState: action.payload };
     default:
       return state;
   }

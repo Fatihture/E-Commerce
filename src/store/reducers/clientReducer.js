@@ -1,8 +1,8 @@
 const initialState = {
   user: {},
   addressList: [],
-  creditCards: [],
   roles: [],
+  creditCards: [], // İki tane vardı, teke düşürdük
   theme: 'light',
   language: 'en'
 };
@@ -17,6 +17,14 @@ export const clientReducer = (state = initialState, action) => {
       return { ...state, theme: action.payload };
     case 'SET_LANGUAGE':
       return { ...state, language: action.payload };
+      
+    // --- YENİ EKLENEN KISIM ---
+    case 'SET_ADDRESS_LIST':
+      return { ...state, addressList: action.payload };
+    case 'SET_CREDIT_CARDS':
+      return { ...state, creditCards: action.payload };
+    // --------------------------
+    
     default:
       return state;
   }

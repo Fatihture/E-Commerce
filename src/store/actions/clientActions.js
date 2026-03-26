@@ -82,3 +82,93 @@ export const fetchRolesIfNeeded = () => async (dispatch, getState) => {
     console.error("Roles fetch error:", error);
   }
 };
+
+export const setAddressList = (addressList) => ({ type: 'SET_ADDRESS_LIST', payload: addressList });
+
+// 1. Adresleri Getir (GET)
+export const fetchAddresses = () => async (dispatch) => {
+  try {
+    const response = await api.get('/user/address');
+    dispatch(setAddressList(response.data));
+  } catch (error) {
+    console.error("Adresler çekilemedi:", error);
+  }
+};
+
+// 2. Yeni Adres Ekle (POST)
+export const addAddress = (addressData) => async (dispatch) => {
+  try {
+    await api.post('/user/address', addressData);
+    dispatch(fetchAddresses()); // Başarılı olursa listeyi yenile!
+    toast.success("Adres başarıyla eklendi.");
+  } catch (error) {
+    toast.error("Adres eklenirken bir hata oluştu.");
+  }
+};
+
+// 3. Adres Güncelle (PUT)
+export const updateAddress = (addressData) => async (dispatch) => {
+  try {
+    await api.put('/user/address', addressData);
+    dispatch(fetchAddresses()); // Başarılı olursa listeyi yenile!
+    toast.success("Adres güncellendi.");
+  } catch (error) {
+    toast.error("Adres güncellenirken bir hata oluştu.");
+  }
+};
+
+// 4. Adres Sil (DELETE)
+export const deleteAddress = (addressId) => async (dispatch) => {
+  try {
+    await api.delete(`/user/address/${addressId}`);
+    dispatch(fetchAddresses()); // Başarılı olursa listeyi yenile!
+    toast.success("Adres silindi.");
+  } catch (error) {
+    toast.error("Adres silinemedi.");
+  }
+};
+
+export const setCreditCards = (cards) => ({ type: 'SET_CREDIT_CARDS', payload: cards });
+
+// 1. Kartları Getir (GET)
+export const fetchCards = () => async (dispatch) => {
+  try {
+    const response = await api.get('/user/card');
+    dispatch(setCreditCards(response.data));
+  } catch (error) {
+    console.error("Kartlar çekilemedi:", error);
+  }
+};
+
+// 2. Yeni Kart Ekle (POST)
+export const addCard = (cardData) => async (dispatch) => {
+  try {
+    await api.post('/user/card', cardData);
+    dispatch(fetchCards()); // Başarılıysa listeyi yenile
+    toast.success("Kart başarıyla eklendi.");
+  } catch (error) {
+    toast.error("Kart eklenirken bir hata oluştu.");
+  }
+};
+
+// 3. Kart Güncelle (PUT)
+export const updateCard = (cardData) => async (dispatch) => {
+  try {
+    await api.put('/user/card', cardData);
+    dispatch(fetchCards());
+    toast.success("Kart güncellendi.");
+  } catch (error) {
+    toast.error("Kart güncellenirken bir hata oluştu.");
+  }
+};
+
+// 4. Kart Sil (DELETE)
+export const deleteCard = (cardId) => async (dispatch) => {
+  try {
+    await api.delete(`/user/card/${cardId}`);
+    dispatch(fetchCards());
+    toast.success("Kart silindi.");
+  } catch (error) {
+    toast.error("Kart silinemedi.");
+  }
+};

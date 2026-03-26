@@ -7,6 +7,8 @@ export const setLimit = (limit) => ({ type: 'SET_LIMIT', payload: limit });
 export const setOffset = (offset) => ({ type: 'SET_OFFSET', payload: offset });
 export const setFilter = (filter) => ({ type: 'SET_FILTER', payload: filter });
 export const setFetchState = (fetchState) => ({ type: 'SET_FETCH_STATE', payload: fetchState });
+export const setCurrentProduct = (product) => ({ type: 'SET_CURRENT_PRODUCT', payload: product });
+export const setDetailFetchState = (fetchState) => ({ type: 'SET_DETAIL_FETCH_STATE', payload: fetchState });
 
 export const fetchCategories = () => async (dispatch, getState) => {
   // Eğer kategoriler zaten çekilmişse boşuna API'yi yorma (Kanban kuralı)
@@ -44,5 +46,18 @@ export const fetchProducts = (categoryId = null, filterText = null, sortOption =
   } catch (error) {
     console.error("Ürünler çekilirken hata oluştu:", error);
     dispatch(setFetchState('FAILED'));
+  }
+};
+
+export const fetchProductDetail = (productId) => async (dispatch) => {
+  dispatch(setDetailFetchState('FETCHING')); // Spinner dönsün
+
+  try {
+    const response = await api.get(`/products/${productId}`);
+    dispatch(setCurrentProduct(response.data)); // Ürünü kasaya koy
+    dispatch(setDetailFetchState('FETCHED')); // Spinner dursun
+  } catch (error) {
+    console.error("Ürün detayı çekilirken hata oluştu:", error);
+    dispatch(setDetailFetchState('FAILED'));
   }
 };
